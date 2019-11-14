@@ -4,12 +4,13 @@
 
 // A random walker class!
 
-float search_radius;
+
 
 class Boid {
   PVector position;
   PVector centric_pos;
   PVector noff;
+  PVector noff_center;
   ArrayList<PVector> history;
   
   Boid() {
@@ -17,6 +18,7 @@ class Boid {
     centric_pos = position.copy();
     history = new ArrayList<PVector>();
     noff = new PVector(random(1000),random(1000));
+    noff_center = new PVector(random(1000),random(1000));
   }
 
   void display() {
@@ -46,6 +48,11 @@ class Boid {
     position.x = map(noise(noff.x),0,1,centric_pos.x-search_radius,centric_pos.x+search_radius);
     position.y = map(noise(noff.y),0,1,centric_pos.y-search_radius,centric_pos.y+search_radius);
     
+    //if area is not covered change center slightly
+    //centric_pos.x = centric_pos.x+noise(noff.x);
+    //centric_pos.y = centric_pos.y+noise(noff.y);
+    
+    
     noff.add(0.01,0.01,0);
     
      // Stay on the screen
@@ -66,5 +73,9 @@ class Boid {
     
     centric_pos = position.copy();
     print("levy fligth performed "+position+"\n");
+  }
+  
+  ArrayList<PVector> get_history(){
+    return history;
   }
 }
