@@ -77,7 +77,6 @@ void keyPressed() {
       int step_size = path.size()/(no_of_points);
       print("step_size: "+step_size+"\n");
       for(int i = 0; i<no_of_points; i++){
-        
         PVector P1 = path.get(step_size*i++);
         PVector P2 = path.get(step_size*i);
         //print("point 1: "+path.get(step_size*i++)+" point 2: "+path.get(step_size*i)+"\n");        
