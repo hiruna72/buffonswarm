@@ -73,3 +73,7 @@ float average_y(){
 float calculate_radius(float area){
   return sqrt(area/PI);
 }
+
+float calculate_area(float radius){
+  return PI*radius*radius;
+}

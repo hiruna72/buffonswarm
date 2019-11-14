@@ -4,7 +4,7 @@
 
 // A random walker class!
 
-float search_radius;
+
 
 class Boid {
   PVector position;

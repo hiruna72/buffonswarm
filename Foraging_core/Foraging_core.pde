@@ -4,12 +4,14 @@
 
 boolean showvalues = true;
 boolean scrollbar = true;
+boolean showestimations = false;
 int no_of_line_segments = 10;
 int no_of_points = 2*no_of_line_segments;
 ArrayList<Boid> boids; // An ArrayList for all the boids
 ArrayList<Line> line_set1,line_set2;
 float scale_factor = 50;
-float average_x,average_y,radius;
+float average_x,average_y,radius,area,no_intersections;
+float search_radius;
 void setup() {
   size(600, 600);
   frameRate(100);
@@ -33,11 +35,18 @@ void draw() {
   if (showvalues) {
     fill(0);
     textAlign(LEFT);
-    text("Total boids: " + boids.size() + "\n" + "search_radius: " + search_radius +"\n" + "Framerate: " + round(frameRate)+ "\nPress 'c' to levy_fly",5,40);// + "\nPress any key to show/hide sliders and text\nClick mouse to add more boids",5,100);
+    text("Total boids: " + boids.size() + "\n" + "search_radius: " + search_radius +"\n"+ "search_area: " + search_radius +"\n" + "Framerate: " + round(frameRate)+ "\nPress 'c' to levy_fly",5,40);// + "\nPress any key to show/hide sliders and text\nClick mouse to add more boids",5,100);
+    if(showestimations){
+      text("avg: "+average_x()+", "+average_y(),5,100);
+      text("no.of intersections: "+no_intersections,5,120);
+      text("radius: "+radius,5,140);
+      text("area: "+area,5,150);
+    }
   }
   
   point(average_x*scale_factor,average_y*scale_factor);
   circle(average_x*scale_factor,average_y*scale_factor,radius*scale_factor*2);
+  
 }
 
 
@@ -66,11 +75,13 @@ void keyPressed() {
         else
           line_set2.add(l);
       }
-      float area = buffons_area_estimation();
-      float radius = calculate_radius(area);
-      print("area : "+ area+" radius : "+radius+"\n");
+
       average_x = average_x();
       average_y = average_y();
+      no_intersections = no_intersections();
+      area = buffons_area_estimation();
+      print("area : "+ area+" radius : "+radius+"\n");
     }
+    showestimations = true;
   }
 }

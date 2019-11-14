@@ -18,15 +18,11 @@ class Line {
   
   float get_a(){
     float a = (P2.y-P1.y)/(P1.x-P2.x);
-    print("a: "+a);
-    print("\n");
     return a;
   }
   
   float get_b(){
     float b = (P2.y*P1.x - P1.y*P2.x)/(P2.x-P1.x);
-    print("b: "+b);
-    print("\n");
     return b;
   }
   
