@@ -43,6 +43,6 @@ class Line {
   }
   
   void display() {
-    line(P1.x*scale_factor, -P1.y*scale_factor, P2.x*scale_factor, -P2.y*scale_factor);
+    line(P1.x, P1.y, P2.x, P2.y);
   }
 }
