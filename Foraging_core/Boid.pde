@@ -45,12 +45,14 @@ class Boid {
   // Randomly move up, down, left, right, or stay in one place
   void walk() {
     
-    position.x = map(noise(noff.x),0,1,centric_pos.x-search_radius,centric_pos.x+search_radius);
-    position.y = map(noise(noff.y),0,1,centric_pos.y-search_radius,centric_pos.y+search_radius);
+    position.x = map(noise(noff.x),0,1,centric_pos.x-search_radius-offset,centric_pos.x+search_radius+offset);
+    position.y = map(noise(noff.y),0,1,centric_pos.y-search_radius-offset,centric_pos.y+search_radius+offset);
     
     //if area is not covered change center slightly
-    //centric_pos.x = centric_pos.x+noise(noff.x);
-    //centric_pos.y = centric_pos.y+noise(noff.y);
+    if(random(1000)<10){
+      centric_pos.x = centric_pos.x+map(noise(noff.x),0,1,-1,1);
+      centric_pos.y = centric_pos.y+map(noise(noff.y),0,1,-1,1);
+    }
     
     
     noff.add(0.01,0.01,0);

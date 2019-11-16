@@ -7,29 +7,29 @@ void setup() {
   line_set1 = new ArrayList<Line>();
   line_set2 = new ArrayList<Line>();
   
-  Line l = new Line(1,1,3,1);
+  //Line l = new Line(1,1,3,1);
+  //line_set1.add(l);
+  //l = new Line(1,3,3,3);
+  //line_set2.add(l);
+  // add some lines
+  Line l = new Line(0,1,2,5);
   line_set1.add(l);
-  l = new Line(1,3,3,3);
-  line_set2.add(l);
-  //// add some lines
-  //Line l = new Line(0,1,2,5);
+  //l = new Line(3,1,2,4);
   //line_set1.add(l);
-  ////l = new Line(3,1,2,4);
-  ////line_set1.add(l);
-  //l = new Line(1,1,2,2);
-  //line_set1.add(l);
-  //l = new Line(5,1,2,0);
-  //line_set1.add(l);
+  l = new Line(1,1,2,2);
+  line_set1.add(l);
+  l = new Line(5,1,2,0);
+  line_set1.add(l);
   
-  ////for set 2
-  //l = new Line(1,5,5,3);
-  //line_set2.add(l);
-  //l = new Line(1,4,2,1);
-  //line_set2.add(l);
-  //l = new Line(2,0.5,5,0.5);
-  //line_set2.add(l);
-  //l = new Line(1,4,5,2);
-  //line_set2.add(l);
+  //for set 2
+  l = new Line(1,5,5,3);
+  line_set2.add(l);
+  l = new Line(1,4,2,1);
+  line_set2.add(l);
+  l = new Line(2,0.5,5,0.5);
+  line_set2.add(l);
+  l = new Line(1,4,5,2);
+  line_set2.add(l);
 }
 
 void draw() {

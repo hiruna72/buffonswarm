@@ -11,10 +11,10 @@ ArrayList<Boid> boids; // An ArrayList for all the boids
 ArrayList<Line> line_set1,line_set2;
 float scale_factor = 50;
 float average_x,average_y,radius,area,no_intersections;
-float search_radius;
+float search_radius,offset;
 void setup() {
   size(600, 600);
-  frameRate(100);
+  frameRate(10);
   setupScrollbars();
   // Create a walker object
   boids = new ArrayList<Boid>(); // Initialize the ArrayList
@@ -47,12 +47,12 @@ void draw() {
   if (showvalues) {
     fill(0);
     textAlign(LEFT);
-    text("Total boids: " + boids.size() + "\n" + "search_radius: " + search_radius +"\n"+ "search_area: " + calculate_area(search_radius) +"\n" + "Framerate: " + round(frameRate)+ "\nPress 'c' to levy_fly",5,40);// + "\nPress any key to show/hide sliders and text\nClick mouse to add more boids",5,100);
+    text("Total boids: " + boids.size() + "\n" + "offset: " + offset +"\nsearch_radius: " + search_radius +"\n"+ "search_area: " + calculate_area(search_radius) +"\n" + "Framerate: " + round(frameRate)+ "\nPress 'c' to levy_fly",5,60);// + "\nPress any key to show/hide sliders and text\nClick mouse to add more boids",5,100);
     if(showestimations){
-      text("avg: "+average_x()+", "+average_y(),5,110);
-      text("no.of intersections: "+no_intersections,5,120);
-      text("radius: "+radius,5,140);
-      text("area: "+area,5,150);
+      text("avg: "+average_x()+", "+average_y(),5,145);
+      text("no.of intersections: "+no_intersections,5,160);
+      text("radius: "+radius,5,180);
+      text("area: "+area,5,200);
     }
   }
   

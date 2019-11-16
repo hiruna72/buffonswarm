@@ -4,8 +4,8 @@
 
 // Code based on "Scrollbar" by Casey Reas
 
-HScrollbar[] hs = new HScrollbar[1];//
-String[] labels =  {"search_radius"};
+HScrollbar[] hs = new HScrollbar[2];//
+String[] labels =  {"search_radius","offset"};
 
 int x = 5;
 int y = 20;
@@ -31,6 +31,7 @@ void setupScrollbars() {
 void drawScrollbars() {
   //if (showvalues) {
   search_radius = hs[0].getPos()*300.0f;     //sep.mult(25.0f);
+  offset = hs[1].getPos()*50.0f;
   //awt = hs[1].getPos()*2.0f;     //sep.mult(25.0f);
   //cwt = hs[2].getPos()*2.0f;     //sep.mult(25.0f);
   //maxspeed = hs[3].getPos()*10.0f;
