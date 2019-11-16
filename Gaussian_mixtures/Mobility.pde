@@ -3,7 +3,7 @@ void generate_clusters(){
   for(int i = 0; i< no_of_targets; i++){
     int t_x = (int)random(width);
     int t_y = (int)random(height);
-  
+    int iter_around_target = (int)random(min_iter_around_target,max_iter_around_target);
     for(int j = 0; j<iter_around_target;j++){
         float xloc = randomGaussian();
         float yloc = randomGaussian();
