@@ -4,15 +4,33 @@
 
 int no_of_targets = 3;
 int min_iter_around_target = 10;
-int max_iter_around_target = 100;
-ArrayList<PVector> points  = new ArrayList<PVector>();
-ArrayList<PVector> noffs  = new ArrayList<PVector>();
-ArrayList<PVector> original_points = new ArrayList<PVector>();;
+int max_iter_around_target = 200;
+ArrayList<Cluster> clusters  = new ArrayList<Cluster>();
+int no_of_clusters = 2;
+
+void generate_clusters(){
+ for(int i = 0; i < no_of_clusters; i++){
+   clusters.add(new Cluster());
+ }
+}
+
+void move(){
+ for(Cluster cluster : clusters){
+   cluster.move();
+ }
+}
+
+void display(){
+ for(Cluster cluster : clusters){
+   cluster.display();
+ }
+}
+
 void setup() {
-  size(640, 360);
+  size(800, 600);
   background(255);
   //noLoop();
-  frameRate(100);
+  frameRate(50);
   generate_clusters();  
 }
 
@@ -21,8 +39,7 @@ void draw() {
   fill(0);
   noStroke();
 
-  for(PVector point : points){
-    ellipse(point.x,point.y,3,3);
-  }
   move();
+  display();
+
 }
