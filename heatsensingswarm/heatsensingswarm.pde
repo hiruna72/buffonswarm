@@ -2,6 +2,15 @@
 // Daniel Shiffman
 // http://natureofcode.com
 
+//heatmap 
+float increment = 0.02;
+int roix = 50;
+int roiy = 100;
+int limit = 360000;
+float [] heats = new float[limit];
+
+
+
 boolean showvalues = true;
 boolean scrollbar = true;
 boolean showestimations = false;
@@ -22,10 +31,17 @@ void setup() {
   line_set2 = new ArrayList<Line>();
   Boid b = new Boid();
   boids.add(b);
+
+  //heat map stuff
+  setHeatMap();
 }
 
 void draw() {
-  background(255);
+  //background(255);
+  loadPixels();
+  drawHeatMap();
+  changeROI(true);  
+  updatePixels();
   drawScrollbars();
   
   // Run the walker object
@@ -45,7 +61,7 @@ void draw() {
   stroke(0);
 
   if (showvalues) {
-    fill(0);
+    fill(255,255,0);
     textAlign(LEFT);
     text("Total boids: " + boids.size() + "\n" + "offset: " + offset +"\nsearch_radius: " + search_radius +"\n"+ "search_area: " + calculate_area(search_radius) +"\n" + "Framerate: " + round(frameRate)+ "\nPress 'c' to levy_fly",5,60);// + "\nPress any key to show/hide sliders and text\nClick mouse to add more boids",5,100);
     if(showestimations){
@@ -97,4 +113,52 @@ void keyPressed() {
     }
     showestimations = true;
   }
+}
+
+void setHeatMap(){
+  int index = 0;
+  float xoff = 0.0; // Start xoff at 0
+  
+  // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
+  for (int x = 0; x < width; x++) {
+    xoff += increment;   // Increment xoff 
+    float yoff = 0.0;   // For every xoff, start yoff at 0
+    for (int y = 0; y < height; y++) {
+      yoff += increment; // Increment yoff
+      
+      // Calculate noise and scale by 255
+      float bright = noise(xoff,yoff)*255;
+      heats[index++] = bright;
+    }
+  } 
+}
+
+void drawHeatMap(){
+  int index = 0;
+  while(index < limit){
+    pixels[index] = color(heats[index++]);
+  }
+}
+
+void changeROI(boolean paint){
+  for (int x = roix; x < roix+100 && x < width; x++) {
+    for (int y = roiy; y < roiy+100 && y < height; y++) {
+      float bright = heats[x+y*width];
+      if(paint && bright < 90){
+        pixels[x+y*width] = color(0);      
+      }
+      else{
+        pixels[x+y*width] = color(bright);
+      }    
+    }
+  }
+}
+
+void mousePressed() {
+ print("pressed");
+ changeROI(false);
+ roix = mouseX;
+ roiy = mouseY;
+ changeROI(true);
+ circle(roix,roiy,10);
 }

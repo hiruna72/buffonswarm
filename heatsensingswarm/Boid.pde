@@ -26,7 +26,7 @@ class Boid {
 
   void display() {
     strokeWeight(2);
-    fill(127);
+    fill(255,255,0);
     stroke(0);
     ellipse(position.x, position.y, 10, 10);
     
