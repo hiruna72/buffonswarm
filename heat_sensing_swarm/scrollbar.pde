@@ -4,11 +4,12 @@
 
 // Code based on "Scrollbar" by Casey Reas
 
-HScrollbar[] hs = new HScrollbar[1];//
-String[] labels =  {"search_radius","offset"};
+HScrollbar[] hs = new HScrollbar[2];//
+String[] labels =  {"true search_radius","offset"};
+float[] parameters = new float[2];
 
 int x = 5;
-int y = 20;
+int y = 610;
 int w = 150;
 int h = 8;
 int l = 2;
@@ -30,12 +31,10 @@ void setupScrollbars() {
 
 void drawScrollbars() {
   //if (showvalues) {
-  search_radius = hs[0].getPos()*300.0f;     //sep.mult(25.0f);
-  //offset = hs[1].getPos()*50.0f;
-  //awt = hs[1].getPos()*2.0f;     //sep.mult(25.0f);
-  //cwt = hs[2].getPos()*2.0f;     //sep.mult(25.0f);
-  //maxspeed = hs[3].getPos()*10.0f;
-  //maxforce = hs[4].getPos()*0.5;
+  parameters[0] = hs[0].getPos()*300.0f;     //sep.mult(25.0f);
+  parameters[1] = hs[1].getPos()*100.0f;
+  search_radius = parameters[0];
+  offset = parameters[1];
 
 
   if (showvalues) {
@@ -44,7 +43,7 @@ void drawScrollbars() {
       hs[i].draw();
       fill(255,255,0);
       textAlign(LEFT);
-      text(labels[i],x+w+spacing,y+i*(h+spacing)+spacing);
+      text(labels[i]+" : "+(int)parameters[i],x+w+spacing,y+i*(h+spacing)+spacing);
       //text(hs[i].getPos(),x+w+spacing+75,y+i*(h+spacing)+spacing);
     }
   }

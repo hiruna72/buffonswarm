@@ -8,12 +8,14 @@ int roix = 50;
 int roiy = 100;
 int limit = 360000;
 float [] heats = new float[limit];
-
+boolean ROIchange = false;
 
 
 boolean showvalues = true;
 boolean scrollbar = true;
 boolean showestimations = false;
+
+
 int no_of_line_segments = 10;
 int no_of_points = 2*no_of_line_segments;
 ArrayList<Boid> boids; // An ArrayList for all the boids
@@ -21,6 +23,8 @@ ArrayList<Line> line_set1,line_set2;
 float scale_factor = 50;
 float average_x,average_y,radius,area,no_intersections;
 float search_radius,offset;
+
+int no_of_boids = 3;
 void setup() {
   size(600, 600);
   frameRate(100);
@@ -29,9 +33,10 @@ void setup() {
   boids = new ArrayList<Boid>(); // Initialize the ArrayList
   line_set1 = new ArrayList<Line>();
   line_set2 = new ArrayList<Line>();
-  Boid b = new Boid();
-  boids.add(b);
-
+  for(int i = 0; i < no_of_boids; i++){
+    Boid b = new Boid();
+    boids.add(b);
+  }
   //heat map stuff
   setHeatMap();
 }
@@ -63,7 +68,8 @@ void draw() {
   if (showvalues) {
     fill(255,255,0);
     textAlign(LEFT);
-    text("Total boids: " + boids.size() + "\n" + "offset: " + offset +"\nsearch_radius: " + search_radius +"\n"+ "search_area: " + calculate_area(search_radius) +"\n" + "Framerate: " + round(frameRate)+ "\nPress 'c' to levy_fly",5,60);// + "\nPress any key to show/hide sliders and text\nClick mouse to add more boids",5,100);
+    //text("Total boids: " + boids.size() + "\n" + "offset: " + offset +"\nsearch_radius: " + search_radius +"\n"+ "search_area: " + calculate_area(search_radius) +"\n" + "Framerate: " + round(frameRate)+ "\nPress 'c' to levy_fly",5,60);// + "\nPress any key to show/hide sliders and text\nClick mouse to add more boids",5,100);
+    text("Total boids: " + boids.size() + "\n" +"\ntrue search_radius: " + (int)search_radius +"\n"+ "true search_area: " + (int)calculate_area(search_radius) +"\n",5,60);// + "\nPress any key to show/hide sliders and text\nClick mouse to add more boids",5,100);
     if(showestimations){
       text("avg: "+average_x()+", "+average_y(),5,145);
       text("no.of intersections: "+no_intersections,5,160);
@@ -79,6 +85,10 @@ void draw() {
 
 
 void keyPressed() {
+  if (key =='p') {
+    ROIchange = true;
+  }
+  
   if (key =='c') {
     for (Boid b : boids) {
       b.levy_flight();
@@ -155,10 +165,12 @@ void changeROI(boolean paint){
 }
 
 void mousePressed() {
- print("pressed");
- changeROI(false);
- roix = mouseX;
- roiy = mouseY;
- changeROI(true);
- circle(roix,roiy,10);
+ if(ROIchange){
+   changeROI(false);
+   roix = mouseX;
+   roiy = mouseY;
+   changeROI(true);
+   circle(roix,roiy,10);
+   ROIchange = false;
+ }
 }
